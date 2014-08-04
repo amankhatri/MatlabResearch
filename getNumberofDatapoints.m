@@ -1,4 +1,6 @@
-filename = 'GU112 CGM raw.xlsx';
+function [i,totalDays] = getNumberofDatapoints(filename)
+%UNTITLED6 Summary of this function goes here
+%   Detailed explanation goes here
 %To import this file, first convert the dates within Excel to a numeric
 %format. however rawdata and text contains these dates as sting.
 [numeric,text,rawdata] = xlsread(filename);
@@ -14,7 +16,6 @@ dates_times = [dates times];
 %in second column and date in third, fourth column contains hours, fifth
 %contains min, and sixth contains seconds
 dates_vec = datevec(dates,'mm/dd/yyyy');
-metered_bg = rawdata(2:end,9);
 %calculating the number of data points in excel files. 
 i =1; 
 try
@@ -26,12 +27,5 @@ catch exception
 end
 %the number of days for which study was done 
 totalDays = (dates_vec(i,3)-dates_vec(3,2)) +1;
-for j=1:i
-   metered_bg(j)
-   %Use code128B{a,1} instead of code128B(a,1) to get the number instead of a cell containing the number.
-   if((~isempty(metered_bg{j}))&&(metered_bg{j}>0))
-     j
-       break;
-   end
 end
-isnumeric(pi);
+
