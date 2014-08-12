@@ -3,4 +3,5 @@ filename = 'GU112 CGM raw.xlsx';
 rawdata = getRawData(filename);
 dates_times = getDateTime(rawdata);
 firstMeteredReading = findMeteredReading(rawdata,datapoints)
+mean = calculateMean(firstMeteredReading,rawdata,datapoints);
 %deleteUptoFirstCalibration(filename);
