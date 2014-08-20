@@ -66,16 +66,16 @@ while(readingNumber<numberofDatapoints-firstMeteredReading-4)
     end
 end
 catch exception
-    readingNumber;
+    readingNumber
 end
 %calculating slope.
 reading = 2
 try
     while(reading<=readingNumber)
-    mean(reading+1,2) = (mean(reading,1)-mean(reading+1,1));
+    slope(reading,1) = (mean(reading,1)-mean(reading+1,1))
     reading = reading+1;
     end
-catch exception
-    reading;
+catch 
+    readingNumber
 end
 

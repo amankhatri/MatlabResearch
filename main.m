@@ -3,5 +3,7 @@ filename = 'GU112 CGM raw.xlsx';
 rawdata = getRawData(filename);
 dates_times = getDateTime(rawdata);
 firstMeteredReading = findMeteredReading(rawdata,datapoints)
-mean = calculateMean(firstMeteredReading,rawdata,datapoints);
+[mean readingNumber] = calculateMean(firstMeteredReading,rawdata,datapoints);
+slope = calculateSlope(mean,readingNumber);
+
 %deleteUptoFirstCalibration(filename);
