@@ -32,7 +32,16 @@ for j=1:i
    %Use code128B{a,1} instead of code128B(a,1) to get the number instead of a cell containing the number.
    if((~isempty(metered_bg{j}))&&(metered_bg{j}>0))
      j;
-       break;
+     j=j+1
+   break;
+   end
+end
+for j=j:i
+   metered_bg(j);
+   %Use code128B{a,1} instead of code128B(a,1) to get the number instead of a cell containing the number.
+   if((~isempty(metered_bg{j}))&&(metered_bg{j}>0))
+     j;
+    break;
    end
 end
 TRUE =1;
@@ -70,12 +79,59 @@ catch exception
 end
 %calculating slope.
 reading = 2
+    
 try
     while(reading<=readingNumber)
     mean(reading+1,2) = (mean(reading,1)-mean(reading+1,1));
+   
     reading = reading+1;
     end
 catch exception
     reading;
+end
+%total mean calculation 
+reading = 2;
+    %initiating with some value. Do not remove this
+    mean(2,3) = mean(reading,1);
+ try 
+    while(reading<=readingNumber)
+        mean(2,3) = (mean(reading,1)+mean(2,3));
+        reading =  reading+1;
+    end
+catch exception
+end
+    mean(2,3) = mean(2,3)/readingNumber;
+     
+% Calculations for standard davieation add this to the code :D
+ readingNumber = 1;
+% boolean is it a mean of the first reading for the day
+ firstStd=TRUE;
+% %is it the mean of the last reading for the day
+ laststd = FALSE;
+sprintf('Wierd Things happen');
+ if(firstStd)
+     firststd = FALSE;
+%   %  when we use "{}" this mean value inside the cell <-- important keep in
+%   %  mind
+    mean(readingNumber+1,4) = 0;
+    mean(readingNumber+1,4)= (abs((sensorGlucose{firstMeteredReading})- mean(readingNumber+1,1)))^2;
+    mean(readingNumber+1,4) = (abs((sensorGlucose{firstMeteredReading+readingNumber+1})- mean(readingNumber+1,1)))^2+mean(readingNumber+1,4);
+    mean(readingNumber+1,4) = (abs((sensorGlucose{firstMeteredReading+readingNumber+2})- mean(readingNumber+1,1)))^2+mean(readingNumber+1,4);
+    mean(readingNumber+1,4) = sqrt(mean(readingNumber+1,4)/2);
+    readingNumber = readingNumber+1;
+    secondstd = TRUE;
+ end
+try if(secondstd)
+    while(readingNumber<(numberofDatapoints- firstMeteredReading-4))
+             mean(readingNumber+1,4)= (abs((sensorGlucose{firstMeteredReading+readingNumber-2})- mean(readingNumber+1,1)))^2;
+             mean(readingNumber+1,4) = (abs((sensorGlucose{firstMeteredReading+readingNumber-1})- mean(readingNumber+1,1)))^2+mean(readingNumber+1,4);
+             mean(readingNumber+1,4) = (abs((sensorGlucose{firstMeteredReading+readingNumber+1})- mean(readingNumber+1,1)))^2+mean(readingNumber+1,4);
+             mean(readingNumber+1,4) = (abs((sensorGlucose{firstMeteredReading+readingNumber+2})- mean(readingNumber+1,1)))^2+mean(readingNumber+1,4);
+             mean(readingNumber+1,4) = sqrt(mean(readingNumber+1,4)/3);
+            readingNumber = readingNumber+1;
+    end
+    end
+catch exception
+    sprintf('I am in exception of second reading')
 end
 

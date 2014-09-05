@@ -12,7 +12,7 @@ sensorGlucose  = rawdata(2:end,14);
 if(firstMean)
     firstMean = FALSE;
   %  when we use "{}" this mean value inside the cell <-- important keep in mind
- mean(readingNumber+1,1)= (sensorGlucose{firstMeteredReading} + sensorGlucose{firstMeteredReading+readingNumber+1}+ sensorGlucose{firstMeteredReading+readingNumber+2})/3;
+ mean(readingNumber+1,7)= (sensorGlucose{firstMeteredReading} + sensorGlucose{firstMeteredReading+readingNumber+1}+ sensorGlucose{firstMeteredReading+readingNumber+2})/3;
   readingNumber = readingNumber+1;
   secondReading = TRUE;
  % mean(4,1) = 5   
@@ -21,18 +21,16 @@ end
 try
 while(readingNumber<numberofDatapoints-firstMeteredReading-4)
     if(secondReading)
-        mean(readingNumber+1, 1) = (sensorGlucose{firstMeteredReading+readingNumber-2}+sensorGlucose{firstMeteredReading+readingNumber-1}+sensorGlucose{firstMeteredReading+readingNumber+1}+sensorGlucose{firstMeteredReading+readingNumber+2})/4; 
+        mean(readingNumber+1,7) = (sensorGlucose{firstMeteredReading+readingNumber-2}+sensorGlucose{firstMeteredReading+readingNumber-1}+sensorGlucose{firstMeteredReading+readingNumber+1}+sensorGlucose{firstMeteredReading+readingNumber+2})/4; 
         secondReading = FALSE;
         readingNumber = readingNumber+1;
     else
-        mean(readingNumber+1, 1) = (sensorGlucose{firstMeteredReading+readingNumber-2}+sensorGlucose{firstMeteredReading+readingNumber-1}+sensorGlucose{firstMeteredReading+readingNumber+1}+sensorGlucose{firstMeteredReading+readingNumber+2})/4; 
+        mean(readingNumber+1, 7) = (sensorGlucose{firstMeteredReading+readingNumber-2}+sensorGlucose{firstMeteredReading+readingNumber-1}+sensorGlucose{firstMeteredReading+readingNumber+1}+sensorGlucose{firstMeteredReading+readingNumber+2})/4; 
         readingNumber = readingNumber+1;
     end
 end
 catch exception
-      readingNumber
+      readingNumber;
 end
-
-
 end
 
