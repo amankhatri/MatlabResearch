@@ -134,4 +134,11 @@ try if(secondstd)
 catch exception
     sprintf('I am in exception of second reading')
 end
+%calculating x+2sd & x-2sd
+reading =2;
+while(reading<numberofDatapoints- firstMeteredReading-4)
+    mean(reading,5) = mean(reading,1)+mean(reading,4);
+    mean(reading,6) = mean(reading,1)- mean(reading,4);
+    reading = reading +1;
+end
 
